@@ -131,8 +131,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="등록일:" />
+                android:gravity="right" />
             <TextView
                 android:id="@+id/textViewDate"
                 android:layout_width="wrap_content"

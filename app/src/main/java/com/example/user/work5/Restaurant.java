@@ -5,42 +5,43 @@ import android.os.Parcelable;
 
 import java.util.Calendar;
 
-/**
- * Created by user on 2017-04-06.
- */
 
-public class Restaurant implements Parcelable {
+public class Restaurant implements Parcelable{
     private int index;
-    private Food category;
+    private int category;
     private String name;
     private String tel;
     private Menu[] menu;
     private String homepage;
-    private Calendar date;
+    private String date;
 
     public int getIndex() {
         return index;
     }
 
-    public Food getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public Restaurant(int index, String name, String tel, String homepage, Menu menus[], Food category) {
+    public Restaurant(int index, String name, String tel, String homepage, Menu menu[], int category) {
         this.index = index;
         this.name = name;
         this.tel = tel;
         this.homepage = homepage;
         this.category = category;
-        date = Calendar.getInstance();
-        menu = menus;
+        Calendar c = Calendar.getInstance();
+        this.date = c.get(Calendar.YEAR)+"/"+c.get(Calendar.MONTH)+"/"+c.get(Calendar.DATE);
+        this.menu = menu;
     }
 
-    protected Restaurant(Parcel in) {
+    protected Restaurant(Parcel in){
         index = in.readInt();
         name = in.readString();
         tel = in.readString();
         homepage = in.readString();
+        category = in.readInt();
+        date = in.readString();
+        menu = (Menu[])in.readParcelableArray(Menu.class.getClassLoader());
     }
 
     public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
@@ -57,7 +58,7 @@ public class Restaurant implements Parcelable {
 
     @Override
     public String toString() {
-        return name;
+        return "#" + index + ":" + name;
     }
 
     public String getName() {
@@ -76,8 +77,21 @@ public class Restaurant implements Parcelable {
         return homepage;
     }
 
-    public Calendar getDate() {
+    public String getDate() {
         return date;
+    }
+
+
+    public int getCategoryImage() {
+        switch (this.category) {
+            case 0:
+                return R.drawable.chicken;
+            case 1:
+                return R.drawable.pizza;
+            case 2:
+                return R.drawable.hamburger;
+        }
+        return 0;
     }
 
     @Override
@@ -91,24 +105,8 @@ public class Restaurant implements Parcelable {
         dest.writeString(name);
         dest.writeString(tel);
         dest.writeString(homepage);
+        dest.writeInt(category);
+        dest.writeString(date);
+        dest.writeParcelableArray(menu,flags);
     }
-
-    public static enum Food {
-        Chicken,
-        Pizza,
-        Hamburger;
-
-        public int getFoodImage() {
-            switch (ordinal()) {
-                case 0:
-                    return R.drawable.chicken;
-                case 1:
-                    return R.drawable.pizza;
-                case 2:
-                    return R.drawable.hamburger;
-            }
-            return 0;
-        }
-    }
-
 }

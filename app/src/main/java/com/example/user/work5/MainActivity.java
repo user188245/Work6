@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onClick(View view){
         Intent intent = new Intent(this,MainActivity2.class);
-        intent.putExtra("send",list.size());
+        intent.putExtra("send1",list.size());
         startActivityForResult(intent,REQUEST_ADD_RESTAURANT);
     }
 
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,MainActivity3.class);
-        intent.putExtra("send1",list.get(position));
+        intent.putExtra("send2",list.get(position));
         startActivityForResult(intent,REQUEST_READ_RESTAURANT_STATE);
     }
 
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case REQUEST_ADD_RESTAURANT:
                     if (resultCode == RESULT_OK) {
                         list.add((Restaurant) data.getParcelableExtra("receive"));
-                        textView.setText("맛집 리스트(" + list.size() + ")개");
+                        textView.setText("맛집 리스트(" + list.size() + "개)");
                         adapter.notifyDataSetChanged();
                     }
                     break;

@@ -42,11 +42,11 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
             buttonBack = (Button) findViewById(R.id.buttonBack);
             buttonBack.setOnClickListener(this);
 
-            textViewMenu = new TextView[Restaurant.Food.values().length];
+            textViewMenu = new TextView[3];
 
             imageViewCall.setOnClickListener(this);
             intent = getIntent();
-            setTextView((Restaurant) intent.getParcelableExtra("send1"));
+            setTextView((Restaurant) intent.getParcelableExtra("send2"));
         }catch (RuntimeException e){
             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
         }
@@ -55,21 +55,21 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
 
 
     private void setTextView(Restaurant restaurant){
+        this.restaurant = restaurant;
         textViewName.setText(restaurant.getName());
         textViewTel.setText(restaurant.getTel());
         textViewHomePage.setText(restaurant.getHomepage());
-        Calendar c = restaurant.getDate();
-        textViewDate.setText(c.get(Calendar.YEAR)+"/"+c.get(Calendar.MONTH)+"/"+c.get(Calendar.DATE));
+        textViewDate.setText(restaurant.getDate());
         for(int i=0; i<textViewMenu.length; i++)
             textViewMenu[i].setText(restaurant.getMenu()[i].toString());
-        imageViewCategory.setImageResource(restaurant.getCategory().getFoodImage());
-        this.restaurant = restaurant;
+        imageViewCategory.setImageResource(restaurant.getCategoryImage());
     }
 
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        try{
+        switch(v.getId()) {
             case R.id.imageViewCall:
                 startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:/" + restaurant.getTel())));
                 break;
@@ -77,8 +77,12 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + restaurant.getHomepage())));
                 break;
             case R.id.buttonBack:
-                setResult(RESULT_OK,intent);
+                setResult(RESULT_OK, intent);
                 finish();
         }
+        }catch(RuntimeException e){
+            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

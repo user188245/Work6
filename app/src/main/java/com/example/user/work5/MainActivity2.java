@@ -21,7 +21,8 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     
     Button buttonAdd, buttonCancel;
     RadioButton[] radioButton;
-    Restaurant.Food food;
+    int category;
+    RadioGroup radioGroup;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,10 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             radioButton[1] = (RadioButton) findViewById(R.id.radioButtonPizza);
             radioButton[2] = (RadioButton) findViewById(R.id.radioButtonHamburger);
 
-            food = Restaurant.Food.values()[0];
+            radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+            radioGroup.setOnCheckedChangeListener(this);
+
+            category = 0;
             radioButton[0].isChecked();
             
             intent = getIntent();
@@ -68,24 +72,19 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         try {
             switch (v.getId()) {
                 case R.id.buttonAdd:
-                    try {
-                        Menu menu[] = new Menu[3];
-                        for (int i = 0; i < menu.length; i++)
-                            menu[i] = new Menu(editTextMenu[i].getText().toString(), getInt(editTextMenuPrice[i].getText().toString()));
-                        Restaurant restaurant = new Restaurant(
-                                intent.getIntExtra("send", 0),
-                                editTextName.getText().toString(),
-                                editTextTel.getText().toString(),
-                                editTextHomePage.getText().toString(),
-                                menu,
-                                food);
-                        intent.putExtra("receive", restaurant);
-                        setResult(RESULT_OK,intent);
-                    } catch (RuntimeException e) {
-                        setResult(RESULT_CANCELED,intent);
-                    } finally {
-                        finish();
-                    }
+                    Menu menu[] = new Menu[3];
+                    for (int i = 0; i < menu.length; i++)
+                        menu[i] = new Menu(editTextMenu[i].getText().toString(), getInt(editTextMenuPrice[i].getText().toString()));
+                    Restaurant restaurant = new Restaurant(
+                            intent.getIntExtra("send1", 0),
+                            editTextName.getText().toString(),
+                            editTextTel.getText().toString(),
+                            editTextHomePage.getText().toString(),
+                            menu,
+                            category);
+                    intent.putExtra("receive", restaurant);
+                    setResult(RESULT_OK,intent);
+                    finish();
                     break;
                 case R.id.buttonCancel:
                     setResult(RESULT_CANCELED);
@@ -103,7 +102,19 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-        radioButton[checkedId].isChecked();
-        food = Restaurant.Food.values()[checkedId];
+        category = 0;
+        switch(checkedId){
+            case R.id.radioButtonChicken:
+                category = 0;
+                break;
+            case R.id.radioButtonPizza:
+                category = 1;
+                break;
+            case R.id.radioButtonHamburger:
+                category = 2;
+                break;
+        }
+        radioButton[category].isChecked();
+
     }
 }

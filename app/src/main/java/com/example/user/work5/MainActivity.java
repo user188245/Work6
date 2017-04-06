@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ListView listView;
     ArrayList<Restaurant> list;
     ArrayAdapter<Restaurant> adapter;
+    int index = 0;
 
     final int REQUEST_ADD_RESTAURANT = 0;
     final int REQUEST_READ_RESTAURANT_STATE = 1;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onClick(View view){
         Intent intent = new Intent(this,MainActivity2.class);
-        intent.putExtra("send1",list.size());
+        intent.putExtra("send1",index++);
         startActivityForResult(intent,REQUEST_ADD_RESTAURANT);
     }
 

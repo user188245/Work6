@@ -44,6 +44,10 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
 
             textViewMenu = new TextView[3];
 
+            textViewMenu[0] = (TextView) findViewById(R.id.textViewMenu1);
+            textViewMenu[1] = (TextView) findViewById(R.id.textViewMenu2);
+            textViewMenu[2] = (TextView) findViewById(R.id.textViewMenu3);
+
             imageViewCall.setOnClickListener(this);
             intent = getIntent();
             setTextView((Restaurant) intent.getParcelableExtra("send2"));
@@ -60,9 +64,9 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
         textViewTel.setText(restaurant.getTel());
         textViewHomePage.setText(restaurant.getHomepage());
         textViewDate.setText(restaurant.getDate());
+        imageViewCategory.setImageResource(restaurant.getCategoryImage());
         for(int i=0; i<textViewMenu.length; i++)
             textViewMenu[i].setText(restaurant.getMenu()[i].toString());
-        imageViewCategory.setImageResource(restaurant.getCategoryImage());
     }
 
 

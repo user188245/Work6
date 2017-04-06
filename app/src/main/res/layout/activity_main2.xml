@@ -120,17 +120,18 @@
                 android:layout_weight="1">
                 <EditText
                     android:id="@+id/editTextMenu1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#ffffff"
-                    android:hint="메뉴명 (가격)"
+                    android:hint="메뉴명"
                     android:padding="3dp" />
                 <EditText
                     android:id="@+id/editTextMenuPrice1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:inputType="numberDecimal"
                     android:background="#ffffff"
                     android:hint="가격"
                     android:layout_marginLeft="5dp"
@@ -152,17 +153,18 @@
                 android:layout_weight="1">
                 <EditText
                     android:id="@+id/editTextMenu2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#ffffff"
-                    android:hint="메뉴명 (가격)"
+                    android:hint="메뉴명"
                     android:padding="3dp" />
                 <EditText
                     android:id="@+id/editTextMenuPrice2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:inputType="numberDecimal"
                     android:background="#ffffff"
                     android:hint="가격"
                     android:layout_marginLeft="5dp"
@@ -184,17 +186,18 @@
                 android:layout_weight="1">
                 <EditText
                     android:id="@+id/editTextMenu3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#ffffff"
-                    android:hint="메뉴명 (가격)"
+                    android:hint="메뉴명"
                     android:padding="3dp" />
                 <EditText
                     android:id="@+id/editTextMenuPrice3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:inputType="numberDecimal"
                     android:background="#ffffff"
                     android:hint="가격"
                     android:layout_marginLeft="5dp"

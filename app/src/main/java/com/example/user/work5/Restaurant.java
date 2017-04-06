@@ -2,7 +2,9 @@ package com.example.user.work5;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 
@@ -30,7 +32,7 @@ public class Restaurant implements Parcelable{
         this.homepage = homepage;
         this.category = category;
         Calendar c = Calendar.getInstance();
-        this.date = c.get(Calendar.YEAR)+"/"+c.get(Calendar.MONTH)+"/"+c.get(Calendar.DATE);
+        this.date = c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DATE);
         this.menu = menu;
     }
 
@@ -41,7 +43,8 @@ public class Restaurant implements Parcelable{
         homepage = in.readString();
         category = in.readInt();
         date = in.readString();
-        menu = (Menu[])in.readParcelableArray(Menu.class.getClassLoader());
+        menu = in.createTypedArray(Menu.CREATOR);
+
     }
 
     public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
@@ -107,6 +110,6 @@ public class Restaurant implements Parcelable{
         dest.writeString(homepage);
         dest.writeInt(category);
         dest.writeString(date);
-        dest.writeParcelableArray(menu,flags);
+        dest.writeTypedArray(menu,flags);
     }
 }

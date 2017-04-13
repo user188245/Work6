@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner">
+        <item>색인 순</item>
+        <item>이름 순</item>
+        <item>카테고리 순</item>
+        <item>나도 몰라 한번 해봐</item>
+    </string-array>
+</resources>

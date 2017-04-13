@@ -2,13 +2,14 @@ package com.example.user.work5;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.Calendar;
 
 
-public class Restaurant implements Parcelable{
+public class Restaurant implements Parcelable,Comparable<Restaurant>{
     private int index;
     private int category;
     private String name;
@@ -16,6 +17,8 @@ public class Restaurant implements Parcelable{
     private Menu[] menu;
     private String homepage;
     private String date;
+    public static int compareOption = 0;
+    boolean isDeletionTarget = false;
 
     public int getIndex() {
         return index;
@@ -84,7 +87,6 @@ public class Restaurant implements Parcelable{
         return date;
     }
 
-
     public int getCategoryImage() {
         switch (this.category) {
             case 0:
@@ -111,5 +113,20 @@ public class Restaurant implements Parcelable{
         dest.writeInt(category);
         dest.writeString(date);
         dest.writeTypedArray(menu,flags);
+    }
+
+
+    @Override
+    public int compareTo(@NonNull Restaurant o) {
+        switch(Restaurant.compareOption){
+            case 1:
+                return this.name.compareTo(o.name);
+            case 2:
+                return this.category - o.category;
+            case 3:
+                return (Math.random() < 0.5)?1:-1;
+            default:
+                return this.index - o.index;
+        }
     }
 }

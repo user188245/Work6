@@ -16,10 +16,12 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     
     EditText editTextName,editTextTel,editTextHomePage;
     EditText[] editTextMenu, editTextMenuPrice;
+
+    boolean isDeletionMode = false;
     
     Intent intent;
     
-    Button buttonAdd, buttonCancel;
+    Button buttonAdd,buttonCancel;
     RadioButton[] radioButton;
     int category;
     RadioGroup radioGroup;
@@ -86,6 +88,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                     setResult(RESULT_OK,intent);
                     finish();
                     break;
+
                 case R.id.buttonCancel:
                     setResult(RESULT_CANCELED);
                     finish();
@@ -115,6 +118,5 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                 break;
         }
         radioButton[category].isChecked();
-
     }
 }

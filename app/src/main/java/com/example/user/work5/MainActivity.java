@@ -2,9 +2,9 @@ package com.example.user.work5;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -19,10 +19,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
-import static com.example.user.work5.R.id.buttonRemove;
-import static com.example.user.work5.R.id.listMode;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
     Button buttonAdd,buttonRemove;
@@ -77,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void afterTextChanged(Editable s) {
+
                 String search = s.toString();
                 if(search.length() > 0)
                     listView.setFilterText(search);

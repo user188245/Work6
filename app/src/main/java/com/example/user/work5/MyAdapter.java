@@ -5,39 +5,66 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by user on 2017-04-13.
  */
 
-public class MyAdapter extends BaseAdapter{
+public class MyAdapter extends BaseAdapter implements Filterable {
     Context context;
     List<Restaurant> restaurantList;
+    List<Restaurant> filteredList;
     int[] picture = {R.drawable.chicken,R.drawable.pizza,R.drawable.hamburger};
     static boolean isDeletionMode = false;
+    Filter filter;
 
-    public MyAdapter(Context context, List<Restaurant> restaurantList) {
+    public MyAdapter(Context context, final List<Restaurant> restaurantList) {
         this.context = context;
         this.restaurantList = restaurantList;
+        this.filteredList = restaurantList;
+        filter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults fr = new FilterResults();
+                if(constraint == null || constraint.length() == 0) {
+                    fr.values = restaurantList;
+                    fr.count = restaurantList.size();
+                }
+                else{
+                    List<Restaurant> list = filtering(constraint);
+                    fr.values = list;
+                    fr.count = list.size();
+                }
+                return fr;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                filteredList = (List<Restaurant>) results.values;
+                if(results.count > 0)
+                    notifyDataSetChanged();
+                else
+                    notifyDataSetInvalidated();
+            }
+        };
     }
 
     @Override
     public int getCount() {
-        return restaurantList.size();
+        return filteredList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return restaurantList.get(position);
+        return filteredList.get(position);
     }
 
     @Override
@@ -51,7 +78,7 @@ public class MyAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null)
             convertView = LayoutInflater.from(context).inflate(R.layout.list_view,null);
-        Restaurant r = restaurantList.get(position);
+        Restaurant r = filteredList.get(position);
         ((ImageView)convertView.findViewById(R.id.imageView_listView)).setImageResource(picture[r.getCategory()]);
         ((TextView)convertView.findViewById(R.id.textViewName_listView)).setText(r.getName());
         ((TextView)convertView.findViewById(R.id.textViewTel_listView)).setText(r.getTel());
@@ -65,4 +92,17 @@ public class MyAdapter extends BaseAdapter{
     }
 
 
+    @Override
+    public Filter getFilter() {
+        return this.filter;
+    }
+
+    private ArrayList<Restaurant> filtering(CharSequence s){
+        ArrayList<Restaurant> list = new ArrayList<>();
+        for (Restaurant r : restaurantList) {
+            if (r.getName().contains(s))
+                list.add(r);
+        }
+        return list;
+    }
 }
